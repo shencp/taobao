@@ -1,15 +1,14 @@
 /*
-* 文件名： thread_sample1.c
-* 描述：演示线程基本操作
-*/
+ * 文件名： thread_sample1.c
+ * 描述：演示线程基本操作
+ */
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <pthread.h>
 
 /*子线程1入口函数*/
-void *thread_routine1(void *arg)
-{
+void *thread_routine1(void *arg) {
     fprintf(stdout, "thread1: hello world!\n");
     sleep(1);
     /*子线程1在此退出*/
@@ -17,9 +16,8 @@ void *thread_routine1(void *arg)
 }
 
 /*子线程2入口函数*/
-void *thread_routine2(void *arg)
-{
-    
+void *thread_routine2(void *arg) {
+
     fprintf(stdout, "thread2: I'm running...\n");
     pthread_t main_thread = (pthread_t)arg;
 
@@ -41,12 +39,11 @@ void *thread_routine2(void *arg)
     pthread_exit(NULL);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 
     /*创建子线程1*/
     pthread_t t1;
-    if (pthread_create(&t1, NULL, thread_routine1, NULL)!=0) {
+    if (pthread_create(&t1, NULL, thread_routine1, NULL) != 0) {
         fprintf(stderr, "create thread fail.\n");
         exit(-1);
     }
@@ -56,7 +53,8 @@ int main(int argc, char *argv[])
 
     /*创建子线程2，并将主线程ID传递给子线程2*/
     pthread_t t2;
-    if (pthread_create(&t2, NULL, thread_routine2, (void *)pthread_self())!=0) {
+    if (pthread_create(&t2, NULL, thread_routine2, (void *)pthread_self()) !=
+        0) {
         fprintf(stderr, "create thread fail.\n");
         exit(-1);
     }
@@ -65,7 +63,7 @@ int main(int argc, char *argv[])
     sleep(3);
     /*主线程使用pthread_exit函数终止，进程继续存在*/
     fprintf(stdout, "main thread: exit!\n");
-    pthread_exit(NULL);    
+    pthread_exit(NULL);
 
     fprintf(stdout, "main thread: never reach here!\n");
     return 0;

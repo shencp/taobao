@@ -36,6 +36,7 @@ void keyOperations(){
 	if (keyStates['a']){
 		x -= 2;
 		int x1Quadrant = (int)((x - 16.0 *cos(360 * M_PI / 180.0)) / squareSize);
+        // 墙的的设定
 		if (!bitmap.at(x1Quadrant).at((int)y/squareSize)){
 			xIncrement -= 2 / squareSize;
 			rotation = 2;
